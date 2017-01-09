@@ -30,6 +30,8 @@
         this.span.innerText += '长度：' + l.size() + enter;
         this.span.innerText += '按顺序插入25：' + l.insertWithSort(25) + ' 头节点：' + l.getStartNode() + ' 尾节点：' + l.getLastNode() + enter;
         this.span.innerText += '长度：' + l.size() + enter;
+        this.span.innerText += '删除重复节点：' + l.removeDupliteNodes() + ' 头节点：' + l.getStartNode() + ' 尾节点：' + l.getLastNode() + enter;
+        this.span.innerText += '长度：' + l.size() + enter;
     }
 
 
@@ -153,12 +155,11 @@ module LinkList {
                     if (s == this.lastNode) {
                         this.lastNode = p;
                     }
-                    p.next = s.next;
-                    s = s.next;
+                    p.next = s.next;            
                 } else {
                     p = s;
-                    s = s.next;
                 }
+                s = s.next;
             }
 
             return this;
@@ -174,11 +175,10 @@ module LinkList {
                         this.lastNode = p;
                     }
                     p.next = s.next;
-                    s = s.next;
                 } else {
-                    p = s;
-                    s = s.next;
+                    p = s;     
                 }
+                s = s.next;
             }
 
             return this;
@@ -186,7 +186,21 @@ module LinkList {
 
         //删除重复的节点
         removeDuplite(): SingleLinkList {
+            let s = this.getStartNode();
 
+            while (s != null) {
+                let p = s,
+                    next = s.next;
+                while (next != null) {
+                    if (s.data == next.data) {
+                        p.next = next.next;
+                    } else {
+                        p = next;
+                    }
+                    next = next.next;
+                }
+                s = s.next;
+            }
             return this;
         }
 
